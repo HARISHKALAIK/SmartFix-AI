@@ -1,0 +1,1739 @@
+@import "tailwindcss";
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+:root {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+
+  color: #0f172a;
+  background: #ffffff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: #ffffff;
+}
+
+button,
+a,
+input,
+textarea {
+  font: inherit;
+}
+
+
+/* =========================================================
+   HERO GRID
+========================================================= */
+
+.hero-grid {
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.045) 1px,
+      transparent 1px
+    );
+
+  background-size: 50px 50px;
+}
+
+
+/* =========================================================
+   DOT BACKGROUND
+========================================================= */
+
+.dot-background {
+  background-image: radial-gradient(
+    rgba(37, 99, 235, 0.12) 1px,
+    transparent 1px
+  );
+
+  background-size: 24px 24px;
+}
+
+
+/* =========================================================
+   GRADIENT TEXT
+========================================================= */
+
+.gradient-text {
+  background: linear-gradient(
+    90deg,
+    #60a5fa,
+    #22d3ee,
+    #818cf8,
+    #60a5fa
+  );
+
+  background-size: 300% auto;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+
+  animation: gradientMove 5s linear infinite;
+}
+
+
+/* =========================================================
+   ANIMATION CLASSES
+========================================================= */
+
+.animate-hero-left {
+  animation: heroLeft 0.9s ease-out both;
+}
+
+.animate-hero-right {
+  animation: heroRight 1s ease-out 0.15s both;
+}
+
+.animate-chat-float {
+  animation: chatFloat 5s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: floatSlow 9s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: floatReverse 11s ease-in-out infinite;
+}
+
+.animate-float-card {
+  animation: floatCard 4s ease-in-out infinite;
+}
+
+.animate-float-card-delay {
+  animation: floatCard 4s ease-in-out 1.2s infinite;
+}
+
+.animate-pulse-slow {
+  animation: pulseSlow 4s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spinSlow 5s linear infinite;
+}
+
+.animate-expand {
+  animation: expandLine 1.2s ease-out 0.8s both;
+}
+
+.animate-message-appear {
+  animation: messageAppear 0.6s ease-out both;
+}
+
+.animate-particle {
+  animation: particle 5s ease-in-out infinite;
+}
+
+.animate-particle-delay {
+  animation: particle 6s ease-in-out 2s infinite;
+}
+
+
+/* =========================================================
+   KEYFRAMES
+========================================================= */
+
+@keyframes heroLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+@keyframes heroRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+
+@keyframes chatFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-10px) rotate(0.4deg);
+  }
+}
+
+
+@keyframes floatSlow {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(80px, 40px);
+  }
+}
+
+
+@keyframes floatReverse {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-70px, -50px);
+  }
+}
+
+
+@keyframes floatCard {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+
+@keyframes pulseSlow {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: scale(1.08);
+  }
+}
+
+
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% center;
+  }
+
+  100% {
+    background-position: 300% center;
+  }
+}
+
+
+@keyframes expandLine {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+
+@keyframes messageAppear {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+@keyframes particle {
+  0%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0.3;
+  }
+
+  50% {
+    transform: translate(30px, -40px);
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
+/* =========================================================
+   ABOUT PAGE
+========================================================= */
+
+.about-grid {
+  background-image:
+    linear-gradient(
+      rgba(59, 130, 246, 0.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(59, 130, 246, 0.045) 1px,
+      transparent 1px
+    );
+
+  background-size: 55px 55px;
+
+  animation: aboutGridMove 20s linear infinite;
+
+  mask-image: linear-gradient(
+    to bottom,
+    black,
+    black 55%,
+    transparent
+  );
+}
+
+@keyframes aboutGridMove {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 55px 55px;
+  }
+}
+
+
+/* =========================================================
+   HERO ORBS
+========================================================= */
+
+.about-orb {
+  position: absolute;
+
+  border-radius: 50%;
+
+  filter: blur(100px);
+
+  pointer-events: none;
+}
+
+.about-orb-one {
+  width: 420px;
+  height: 420px;
+
+  left: -180px;
+  top: -100px;
+
+  background: rgba(59, 130, 246, 0.14);
+
+  animation: aboutOrbOne 9s ease-in-out infinite;
+}
+
+.about-orb-two {
+  width: 450px;
+  height: 450px;
+
+  right: -200px;
+  top: 25%;
+
+  background: rgba(99, 102, 241, 0.12);
+
+  animation: aboutOrbTwo 11s ease-in-out infinite;
+}
+
+@keyframes aboutOrbOne {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(70px, 50px) scale(1.15);
+  }
+}
+
+@keyframes aboutOrbTwo {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(-60px, -40px) scale(1.1);
+  }
+}
+
+
+/* =========================================================
+   HERO ANIMATION
+========================================================= */
+
+.animate-about-left {
+  animation: aboutLeft 0.9s ease-out both;
+}
+
+.animate-about-right {
+  animation: aboutRight 1s ease-out both;
+  animation-delay: 150ms;
+}
+
+@keyframes aboutLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-35px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes aboutRight {
+  from {
+    opacity: 0;
+    transform: translateX(35px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+
+/* =========================================================
+   GRADIENT TEXT
+========================================================= */
+
+.about-gradient-text {
+  background: linear-gradient(
+    90deg,
+    #2563eb,
+    #4f46e5,
+    #7c3aed,
+    #2563eb
+  );
+
+  background-size: 300% 100%;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+
+  animation: aboutGradient 5s ease infinite;
+}
+
+@keyframes aboutGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+/* =========================================================
+   FLOW CARDS
+========================================================= */
+
+.about-flow-card {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 14px;
+
+  border-radius: 14px;
+
+  border: 1px solid #e2e8f0;
+
+  background: #ffffff;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.about-flow-card:hover {
+  transform: translateX(6px);
+
+  border-color: #bfdbfe;
+
+  box-shadow:
+    0 10px 25px rgba(15, 23, 42, 0.06);
+}
+
+.about-flow-icon {
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+}
+
+.about-flow-line {
+  width: 1px;
+  height: 18px;
+
+  background: linear-gradient(
+    to bottom,
+    #bfdbfe,
+    #c4b5fd
+  );
+}
+
+
+/* =========================================================
+   PRINCIPLE CARDS
+========================================================= */
+
+.about-principle {
+  padding: 26px;
+
+  border-radius: 20px;
+
+  border: 1px solid #e2e8f0;
+
+  background: #ffffff;
+
+  opacity: 0;
+
+  animation: aboutPrinciple 0.7s ease-out forwards;
+
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
+}
+
+.about-principle:hover {
+  transform: translateY(-7px);
+
+  border-color: #bfdbfe;
+
+  box-shadow:
+    0 20px 45px rgba(15, 23, 42, 0.08);
+}
+
+@keyframes aboutPrinciple {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================================
+   CTA PATTERN
+========================================================= */
+
+.about-cta-pattern {
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.06) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.06) 1px,
+      transparent 1px
+    );
+
+  background-size: 45px 45px;
+
+  opacity: 0.5;
+
+  animation: aboutCtaPattern 18s linear infinite;
+}
+
+@keyframes aboutCtaPattern {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 45px 45px;
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .about-grid,
+  .about-orb,
+  .about-gradient-text,
+  .about-cta-pattern {
+    animation: none !important;
+  }
+
+  .animate-about-left,
+  .animate-about-right,
+  .about-principle {
+    animation: none !important;
+    opacity: 1;
+  }
+}
+
+
+
+
+/* =========================================================
+   CONTACT PAGE
+========================================================= */
+
+.contact-grid {
+  background-image:
+    linear-gradient(
+      rgba(59, 130, 246, 0.04) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(59, 130, 246, 0.04) 1px,
+      transparent 1px
+    );
+
+  background-size: 55px 55px;
+
+  animation: contactGridMove 20s linear infinite;
+
+  mask-image: linear-gradient(
+    to bottom,
+    black,
+    black 60%,
+    transparent
+  );
+}
+
+@keyframes contactGridMove {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 55px 55px;
+  }
+}
+
+
+/* =========================================================
+   BACKGROUND GLOWS
+========================================================= */
+
+.contact-glow {
+  position: absolute;
+
+  border-radius: 50%;
+
+  filter: blur(110px);
+
+  pointer-events: none;
+}
+
+.contact-glow-blue {
+  width: 420px;
+  height: 420px;
+
+  top: -100px;
+  left: -180px;
+
+  background: rgba(59, 130, 246, 0.12);
+
+  animation: contactGlowBlue 9s ease-in-out infinite;
+}
+
+.contact-glow-purple {
+  width: 420px;
+  height: 420px;
+
+  right: -180px;
+  top: 35%;
+
+  background: rgba(124, 58, 237, 0.10);
+
+  animation: contactGlowPurple 11s ease-in-out infinite;
+}
+
+@keyframes contactGlowBlue {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(60px, 50px) scale(1.15);
+  }
+}
+
+@keyframes contactGlowPurple {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(-50px, -40px) scale(1.1);
+  }
+}
+
+
+/* =========================================================
+   PARTICLES
+========================================================= */
+
+.contact-dot {
+  position: absolute;
+
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: rgba(37, 99, 235, 0.35);
+
+  animation: contactDot 7s ease-in-out infinite;
+}
+
+.contact-dot-1 {
+  top: 20%;
+  left: 10%;
+}
+
+.contact-dot-2 {
+  top: 30%;
+  right: 12%;
+  animation-delay: 1.5s;
+}
+
+.contact-dot-3 {
+  top: 65%;
+  left: 8%;
+  animation-delay: 3s;
+}
+
+.contact-dot-4 {
+  top: 80%;
+  right: 15%;
+  animation-delay: 4.5s;
+}
+
+@keyframes contactDot {
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: translateY(-25px);
+  }
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.animate-contact-header {
+  animation: contactHeader 0.8s ease-out both;
+}
+
+@keyframes contactHeader {
+  from {
+    opacity: 0;
+    transform: translateY(35px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================================
+   GRADIENT TITLE
+========================================================= */
+
+.contact-gradient-text {
+  background: linear-gradient(
+    90deg,
+    #2563eb,
+    #4f46e5,
+    #7c3aed,
+    #2563eb
+  );
+
+  background-size: 300% 100%;
+
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  color: transparent;
+
+  animation: contactGradient 5s ease infinite;
+}
+
+@keyframes contactGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+
+/* =========================================================
+   PANELS
+========================================================= */
+
+.animate-contact-left {
+  animation: contactLeft 0.8s ease-out both;
+}
+
+.animate-contact-right {
+  animation: contactRight 0.8s ease-out both;
+  animation-delay: 150ms;
+}
+
+@keyframes contactLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes contactRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+
+/* =========================================================
+   DARK PANEL GRID
+========================================================= */
+
+.contact-dark-grid {
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 45px 45px;
+
+  animation: contactDarkGrid 20s linear infinite;
+}
+
+@keyframes contactDarkGrid {
+  from {
+    background-position: 0 0;
+  }
+
+  to {
+    background-position: 45px 45px;
+  }
+}
+
+
+/* =========================================================
+   CONTACT INFO
+========================================================= */
+
+.contact-info-card {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 14px;
+
+  border-radius: 14px;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  background: rgba(255, 255, 255, 0.04);
+
+  transition:
+    transform 0.3s ease,
+    background 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.contact-info-card:hover {
+  transform: translateX(5px);
+
+  background: rgba(255, 255, 255, 0.07);
+
+  border-color: rgba(96, 165, 250, 0.2);
+}
+
+.contact-info-icon {
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 12px;
+
+  color: #60a5fa;
+
+  background: rgba(59, 130, 246, 0.1);
+}
+
+
+/* =========================================================
+   FORM INPUTS
+========================================================= */
+
+.contact-input {
+  width: 100%;
+
+  padding: 13px 16px;
+
+  border-radius: 12px;
+
+  border: 1px solid #e2e8f0;
+
+  background: #f8fafc;
+
+  color: #0f172a;
+
+  outline: none;
+
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.contact-input::placeholder {
+  color: #94a3b8;
+}
+
+.contact-input:hover {
+  border-color: #cbd5e1;
+
+  background: #ffffff;
+}
+
+.contact-input:focus {
+  border-color: #60a5fa;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 0 0 4px rgba(59, 130, 246, 0.1);
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-grid,
+  .contact-glow,
+  .contact-dot,
+  .contact-gradient-text,
+  .contact-dark-grid {
+    animation: none !important;
+  }
+
+  .animate-contact-header,
+  .animate-contact-left,
+  .animate-contact-right {
+    animation: none !important;
+    opacity: 1;
+  }
+}
+
+
+
+
+
+/* =========================================================
+   REGISTER - CLEAN SAAS DESIGN
+========================================================= */
+
+.register-new-grid {
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(37, 99, 235, 0.035) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(37, 99, 235, 0.035) 1px,
+      transparent 1px
+    );
+
+  background-size: 60px 60px;
+
+  mask-image: linear-gradient(
+    to bottom,
+    black,
+    transparent 80%
+  );
+
+  animation: registerNewGrid 22s linear infinite;
+}
+
+
+/* =========================================================
+   BACKGROUND GLOWS
+========================================================= */
+
+.register-new-glow {
+  position: absolute;
+
+  border-radius: 50%;
+
+  filter: blur(90px);
+
+  pointer-events: none;
+}
+
+
+.register-new-glow-one {
+  width: 400px;
+  height: 400px;
+
+  left: -180px;
+  top: 100px;
+
+  background: rgba(59, 130, 246, 0.10);
+
+  animation: registerGlowOne 10s ease-in-out infinite;
+}
+
+
+.register-new-glow-two {
+  width: 450px;
+  height: 450px;
+
+  right: -200px;
+  bottom: -100px;
+
+  background: rgba(99, 102, 241, 0.08);
+
+  animation: registerGlowTwo 12s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   SMALL DOTS
+========================================================= */
+
+.register-new-dot {
+  position: absolute;
+
+  width: 5px;
+  height: 5px;
+
+  border-radius: 50%;
+
+  background: #60a5fa;
+
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+
+  animation: registerDot 5s ease-in-out infinite;
+}
+
+.register-new-dot-one {
+  left: 12%;
+  top: 30%;
+}
+
+.register-new-dot-two {
+  right: 15%;
+  top: 22%;
+  animation-delay: 1.5s;
+}
+
+.register-new-dot-three {
+  right: 25%;
+  bottom: 18%;
+  animation-delay: 3s;
+}
+
+
+/* =========================================================
+   ENTRANCE
+========================================================= */
+
+.register-new-enter-left {
+  animation:
+    registerEnterLeft
+    0.8s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+
+.register-new-enter-right {
+  animation:
+    registerEnterRight
+    0.8s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    0.1s
+    both;
+}
+
+
+/* =========================================================
+   VISUAL PANEL
+========================================================= */
+
+.register-visual-grid {
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(37, 99, 235, 0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(37, 99, 235, 0.05) 1px,
+      transparent 1px
+    );
+
+  background-size: 32px 32px;
+}
+
+
+.register-ai-core {
+  animation: registerCoreFloat 4s ease-in-out infinite;
+}
+
+
+.register-core-ring {
+  position: absolute;
+  inset: -10px;
+
+  border: 1px solid rgba(59, 130, 246, 0.20);
+
+  border-radius: 20px;
+
+  animation: registerCoreRing 3s ease-out infinite;
+}
+
+
+/* =========================================================
+   FLOW NODES
+========================================================= */
+
+.register-flow-node {
+  position: absolute;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  padding: 10px 13px;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 12px;
+
+  background: rgba(255,255,255,0.90);
+
+  box-shadow: 0 8px 25px rgba(15,23,42,0.08);
+
+  z-index: 3;
+}
+
+
+.register-flow-node-left {
+  left: 8%;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  animation: registerNodeLeft 5s ease-in-out infinite;
+}
+
+
+.register-flow-node-right {
+  right: 8%;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  animation: registerNodeRight 5s ease-in-out infinite;
+}
+
+
+.register-flow-node-bottom {
+  left: 50%;
+  bottom: 10px;
+
+  transform: translateX(-50%);
+
+  animation: registerNodeBottom 5s ease-in-out infinite;
+}
+
+
+.register-flow-icon {
+  display: flex;
+
+  width: 30px;
+  height: 30px;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  background: #eff6ff;
+
+  color: #2563eb;
+}
+
+
+/* =========================================================
+   FLOW LINES
+========================================================= */
+
+.register-flow-line {
+  position: absolute;
+
+  height: 1px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(59,130,246,0.45),
+    transparent
+  );
+
+  z-index: 1;
+
+  overflow: hidden;
+}
+
+
+.register-line-left {
+  left: 26%;
+  top: 50%;
+
+  width: 24%;
+}
+
+
+.register-line-right {
+  right: 26%;
+  top: 50%;
+
+  width: 24%;
+}
+
+
+.register-line-bottom {
+  left: 50%;
+  top: 61%;
+
+  width: 1px;
+  height: 23%;
+
+  background: linear-gradient(
+    to bottom,
+    rgba(59,130,246,0.45),
+    transparent
+  );
+}
+
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+.register-clean-input {
+  width: 100%;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 12px;
+
+  background: #f8fafc;
+
+  padding: 13px 15px;
+
+  color: #0f172a;
+
+  outline: none;
+
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+
+.register-clean-input::placeholder {
+  color: #94a3b8;
+}
+
+
+.register-clean-input:hover {
+  border-color: #cbd5e1;
+}
+
+
+.register-clean-input:focus {
+  border-color: #3b82f6;
+
+  background: white;
+
+  box-shadow:
+    0 0 0 4px rgba(59,130,246,0.08);
+}
+
+
+/* =========================================================
+   ROLE SELECTOR
+========================================================= */
+
+.register-role {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  width: 100%;
+
+  padding: 12px;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 12px;
+
+  background: #f8fafc;
+
+  color: #64748b;
+
+  text-align: left;
+
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    transform 0.25s ease;
+}
+
+
+.register-role:hover {
+  border-color: #bfdbfe;
+
+  transform: translateY(-1px);
+}
+
+
+.register-role-active {
+  border-color: #3b82f6;
+
+  background: #eff6ff;
+
+  color: #2563eb;
+}
+
+
+.register-role span:not(.register-role-check) {
+  display: flex;
+
+  flex-direction: column;
+}
+
+
+.register-role strong {
+  font-size: 13px;
+
+  color: #334155;
+}
+
+
+.register-role small {
+  margin-top: 2px;
+
+  font-size: 10px;
+
+  color: #94a3b8;
+}
+
+
+.register-role-check {
+  position: absolute;
+
+  right: 10px;
+
+  top: 10px;
+
+  display: flex;
+
+  width: 18px;
+  height: 18px;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #2563eb;
+
+  color: white;
+}
+
+
+/* =========================================================
+   EYE BUTTON
+========================================================= */
+
+.register-eye-button {
+  position: absolute;
+
+  right: 8px;
+  top: 50%;
+
+  display: flex;
+
+  width: 36px;
+  height: 36px;
+
+  transform: translateY(-50%);
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 8px;
+
+  color: #94a3b8;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
+}
+
+
+.register-eye-button:hover {
+  background: #f1f5f9;
+
+  color: #475569;
+}
+
+
+/* =========================================================
+   ANIMATIONS
+========================================================= */
+
+@keyframes registerNewGrid {
+
+  from {
+    background-position: 0 0, 0 0;
+  }
+
+  to {
+    background-position: 60px 60px, 60px 60px;
+  }
+
+}
+
+
+@keyframes registerGlowOne {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(80px, 40px);
+  }
+
+}
+
+
+@keyframes registerGlowTwo {
+
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+
+  50% {
+    transform: translate(-60px, -50px);
+  }
+
+}
+
+
+@keyframes registerDot {
+
+  0%,
+  100% {
+    opacity: 0.2;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(-12px);
+  }
+
+}
+
+
+@keyframes registerEnterLeft {
+
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+}
+
+
+@keyframes registerEnterRight {
+
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+}
+
+
+@keyframes registerCoreFloat {
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%);
+  }
+
+  50% {
+    transform: translate(-50%, calc(-50% - 8px));
+  }
+
+}
+
+
+@keyframes registerCoreRing {
+
+  0% {
+    opacity: 0.8;
+    transform: scale(0.9);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(1.35);
+  }
+
+}
+
+
+@keyframes registerNodeLeft {
+
+  0%,
+  100% {
+    transform: translateY(-50%);
+  }
+
+  50% {
+    transform: translateY(calc(-50% - 5px));
+  }
+
+}
+
+
+@keyframes registerNodeRight {
+
+  0%,
+  100% {
+    transform: translateY(-50%);
+  }
+
+  50% {
+    transform: translateY(calc(-50% - 7px));
+  }
+
+}
+
+
+@keyframes registerNodeBottom {
+
+  0%,
+  100% {
+    transform: translateX(-50%);
+  }
+
+  50% {
+    transform: translate(-50%, -6px);
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 1023px) {
+
+  .register-new-enter-right {
+    max-width: 520px;
+
+    width: 100%;
+
+    margin: 0 auto;
+  }
+
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+  .register-new-grid,
+  .register-new-glow,
+  .register-new-dot,
+  .register-new-enter-left,
+  .register-new-enter-right,
+  .register-ai-core,
+  .register-core-ring,
+  .register-flow-node {
+    animation: none !important;
+  }
+
+}
