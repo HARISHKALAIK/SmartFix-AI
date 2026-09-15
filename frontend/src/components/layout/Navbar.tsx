@@ -1,125 +1,167 @@
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ArrowRight, Bot } from "lucide-react";
+import { ArrowRight, Bot, Menu, X } from "lucide-react";
 
 const navItems = [
-  {
-    label: "Home",
-    path: "/",
-  },
-  {
-    label: "Features",
-    path: "/features",
-  },
-  {
-    label: "How It Works",
-    path: "/how-it-works",
-  },
-  {
-    label: "About",
-    path: "/about",
-  },
-  {
-    label: "Contact",
-    path: "/contact",
-  },
+  { label: "Home", path: "/" },
+  { label: "Features", path: "/features" },
+  { label: "How It Works", path: "/how-it-works" },
+  { label: "About", path: "/about" },
+  { label: "Contact", path: "/contact" },
 ];
 
 function Navbar() {
   const location = useLocation();
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const closeMobileMenu = () => {
+    setMobileOpen(false);
+  };
 
   return (
-    <header
-      className="
-        fixed
-        top-0
-        left-0
-        right-0
-        z-50
-        bg-white/95
-        backdrop-blur-md
-        border-t
-        border-blue-600/20
-        border-b
-        border-slate-200/80
-      "
-    >
-      <div className="max-w-[1540px] mx-auto px-6 md:px-10 lg:px-12">
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-slate-100 bg-white/95 backdrop-blur-md">
+      <div className="mx-auto flex h-24 max-w-[1540px] items-center justify-between px-6 lg:px-10">
 
-        <div className="h-24 flex items-center justify-between">
+        {/* Logo */}
+        <Link
+          to="/"
+          onClick={closeMobileMenu}
+          className="flex items-center gap-3"
+        >
+          <div className="flex h-[50px] w-[50px] items-center justify-center rounded-[15px] bg-blue-600 text-white shadow-lg shadow-blue-600/20">
+            <Bot size={27} strokeWidth={2.2} />
+          </div>
 
-          {/* ================================
-              LOGO
-          ================================= */}
+          <div className="flex items-center">
+            <span className="text-[22px] font-bold tracking-tight text-slate-900">
+              SmartFix
+            </span>
+            <span className="text-[22px] font-bold tracking-tight text-blue-600">
+              AI
+            </span>
+          </div>
+        </Link>
 
+        {/* Desktop Navigation */}
+        <nav className="hidden items-center gap-1 lg:flex">
+          {navItems.map((item) => {
+            const active = location.pathname === item.path;
+
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`
+                  group relative rounded-xl px-5 py-3
+                  text-[15px] font-medium
+                  transition-all duration-300
+                  ${
+                    active
+                      ? "bg-blue-50 text-blue-600"
+                      : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                  }
+                `}
+              >
+                {item.label}
+
+                {/* Animated underline */}
+                <span
+                  className={`
+                    absolute bottom-1.5 left-1/2 h-[2px]
+                    -translate-x-1/2 rounded-full
+                    bg-blue-600
+                    transition-all duration-300
+                    ${
+                      active
+                        ? "w-5 opacity-100"
+                        : "w-0 opacity-0 group-hover:w-5 group-hover:opacity-100"
+                    }
+                  `}
+                />
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Desktop Actions */}
+        <div className="hidden items-center gap-3 lg:flex">
           <Link
-            to="/"
-            className="group flex items-center gap-3 shrink-0"
+            to="/login"
+            className="
+              rounded-xl px-5 py-3
+              text-[15px] font-medium text-slate-600
+              transition-all duration-300
+              hover:bg-slate-50 hover:text-slate-900
+            "
           >
-            <div
-              className="
-                relative
-                w-[50px]
-                h-[50px]
-                rounded-[15px]
-                bg-blue-600
-                text-white
-                flex
-                items-center
-                justify-center
-                shadow-[0_6px_20px_rgba(37,99,235,0.22)]
-                transition-all
-                duration-300
-                group-hover:-translate-y-0.5
-                group-hover:shadow-[0_10px_28px_rgba(37,99,235,0.32)]
-              "
-            >
-              <Bot
-                size={25}
-                strokeWidth={2.3}
-                className="
-                  transition-transform
-                  duration-300
-                  group-hover:scale-110
-                "
-              />
-
-              {/* Small AI indicator */}
-
-              <span
-                className="
-                  absolute
-                  -right-1
-                  -top-1
-                  w-3
-                  h-3
-                  rounded-full
-                  bg-emerald-400
-                  border-2
-                  border-white
-                  animate-pulse
-                "
-              />
-            </div>
-
-            <div
-              className="
-                text-[24px]
-                font-bold
-                tracking-tight
-                text-slate-900
-              "
-            >
-              SmartFix<span className="text-blue-600">AI</span>
-            </div>
+            Login
           </Link>
 
+          <Link
+            to="/register"
+            className="
+              group flex items-center gap-2
+              rounded-xl bg-blue-600
+              px-5 py-3
+              text-[15px] font-semibold text-white
+              shadow-lg shadow-blue-600/20
+              transition-all duration-300
+              hover:bg-blue-700
+              hover:shadow-xl hover:shadow-blue-600/25
+              hover:-translate-y-0.5
+            "
+          >
+            Get Started
 
-          {/* ================================
-              NAVIGATION
-          ================================= */}
+            <ArrowRight
+              size={17}
+              className="transition-transform duration-300 group-hover:translate-x-1"
+            />
+          </Link>
+        </div>
 
-          <nav className="hidden lg:flex items-center gap-1">
+        {/* Mobile Menu Button */}
+        <button
+          type="button"
+          aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
+          aria-expanded={mobileOpen}
+          onClick={() => setMobileOpen((prev) => !prev)}
+          className="
+            flex h-11 w-11 items-center justify-center
+            rounded-xl
+            border border-slate-200
+            bg-white
+            text-slate-700
+            transition-all duration-300
+            hover:border-blue-200
+            hover:bg-blue-50
+            hover:text-blue-600
+            lg:hidden
+          "
+        >
+          {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+        </button>
+      </div>
 
+      {/* Mobile Navigation */}
+      <div
+        className={`
+          overflow-hidden
+          border-t border-slate-100
+          bg-white
+          transition-all duration-300
+          lg:hidden
+          ${
+            mobileOpen
+              ? "max-h-[600px] opacity-100"
+              : "max-h-0 opacity-0"
+          }
+        `}
+      >
+        <nav className="mx-auto max-w-[1540px] px-6 py-4">
+
+          {/* Mobile Nav Links */}
+          <div className="space-y-1">
             {navItems.map((item) => {
               const active = location.pathname === item.path;
 
@@ -127,211 +169,79 @@ function Navbar() {
                 <Link
                   key={item.path}
                   to={item.path}
+                  onClick={closeMobileMenu}
                   className={`
-                    group
-                    relative
-                    px-4
-                    py-3
-                    text-[17px]
-                    font-medium
-                    transition-all
-                    duration-300
+                    flex items-center justify-between
+                    rounded-xl
+                    px-4 py-3.5
+                    text-[16px] font-medium
+                    transition-all duration-200
                     ${
                       active
-                        ? "text-blue-600"
-                        : "text-slate-600 hover:text-slate-950"
+                        ? "bg-blue-50 text-blue-600"
+                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
                     }
                   `}
                 >
-                  <span
-                    className="
-                      relative
-                      z-10
-                      transition-transform
-                      duration-300
-                      group-hover:-translate-y-0.5
-                    "
-                  >
-                    {item.label}
-                  </span>
+                  <span>{item.label}</span>
 
-                  {/* Hover background */}
-
-                  <span
-                    className={`
-                      absolute
-                      inset-x-1
-                      inset-y-1
-                      rounded-lg
-                      bg-blue-50
-                      transition-all
-                      duration-300
-                      ${
-                        active
-                          ? "opacity-100"
-                          : "opacity-0 group-hover:opacity-100"
-                      }
-                    `}
-                  />
-
-                  {/* Active / hover line */}
-
-                  <span
-                    className={`
-                      absolute
-                      bottom-0
-                      left-4
-                      right-4
-                      h-[2px]
-                      rounded-full
-                      bg-blue-600
-                      transition-transform
-                      duration-300
-                      origin-center
-                      ${
-                        active
-                          ? "scale-x-100"
-                          : "scale-x-0 group-hover:scale-x-100"
-                      }
-                    `}
-                  />
+                  {active && (
+                    <span className="h-2 w-2 rounded-full bg-blue-600" />
+                  )}
                 </Link>
               );
             })}
+          </div>
 
-          </nav>
+          {/* Mobile Actions */}
+          <div className="mt-4 grid grid-cols-2 gap-3 border-t border-slate-100 pt-4">
 
-
-          {/* ================================
-              ACTIONS
-          ================================= */}
-
-          <div className="hidden md:flex items-center gap-6">
-
+            {/* Login */}
             <Link
               to="/login"
+              onClick={closeMobileMenu}
               className="
-                group
-                relative
-                text-[17px]
-                font-medium
-                text-slate-600
-                transition-colors
-                duration-300
+                flex items-center justify-center
+                rounded-xl
+                border border-slate-200
+                px-4 py-3.5
+                text-[15px] font-semibold
+                text-slate-700
+                transition-all duration-300
+                hover:border-blue-200
+                hover:bg-blue-50
                 hover:text-blue-600
               "
             >
               Login
-
-              <span
-                className="
-                  absolute
-                  left-0
-                  right-0
-                  -bottom-1
-                  h-px
-                  bg-blue-600
-                  scale-x-0
-                  origin-left
-                  transition-transform
-                  duration-300
-                  group-hover:scale-x-100
-                "
-              />
             </Link>
 
-
+            {/* Get Started */}
             <Link
               to="/register"
+              onClick={closeMobileMenu}
               className="
-                group
-                relative
-                h-14
-                px-7
-                flex
-                items-center
-                justify-center
-                gap-3
+                group flex items-center justify-center gap-2
                 rounded-xl
                 bg-blue-600
+                px-4 py-3.5
+                text-[15px] font-semibold
                 text-white
-                text-[17px]
-                font-semibold
-                overflow-hidden
-                shadow-[0_8px_22px_rgba(37,99,235,0.20)]
-                transition-all
-                duration-300
+                shadow-lg shadow-blue-600/20
+                transition-all duration-300
                 hover:bg-blue-700
-                hover:-translate-y-0.5
-                hover:shadow-[0_12px_30px_rgba(37,99,235,0.30)]
               "
             >
-
-              {/* Button shine */}
-
-              <span
-                className="
-                  absolute
-                  inset-y-0
-                  -left-20
-                  w-16
-                  rotate-12
-                  bg-white/20
-                  blur-sm
-                  transition-all
-                  duration-700
-                  group-hover:left-[120%]
-                "
-              />
-
-              <span className="relative z-10">
-                Get Started
-              </span>
+              Get Started
 
               <ArrowRight
-                size={20}
-                strokeWidth={2}
-                className="
-                  relative
-                  z-10
-                  transition-transform
-                  duration-300
-                  group-hover:translate-x-1
-                "
+                size={16}
+                className="transition-transform duration-300 group-hover:translate-x-1"
               />
-
             </Link>
 
           </div>
-
-
-          {/* ================================
-              MOBILE
-          ================================= */}
-
-          <Link
-            to="/register"
-            className="
-              md:hidden
-              w-11
-              h-11
-              rounded-xl
-              bg-blue-600
-              text-white
-              flex
-              items-center
-              justify-center
-              shadow-[0_6px_18px_rgba(37,99,235,0.22)]
-              transition-all
-              duration-300
-              hover:bg-blue-700
-              hover:-translate-y-0.5
-            "
-          >
-            <ArrowRight size={20} />
-          </Link>
-
-        </div>
+        </nav>
       </div>
     </header>
   );
