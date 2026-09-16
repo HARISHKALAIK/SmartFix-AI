@@ -19,7 +19,7 @@ function Navbar() {
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 border-b border-slate-100 bg-white/95 backdrop-blur-md">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-slate-950 border-b border-white/10">
       <div className="mx-auto flex h-24 max-w-[1540px] items-center justify-between px-6 lg:px-10">
 
         {/* Logo */}
@@ -33,17 +33,18 @@ function Navbar() {
           </div>
 
           <div className="flex items-center">
-            <span className="text-[22px] font-bold tracking-tight text-slate-900">
+            <span className="text-[22px] font-bold tracking-tight text-white">
               SmartFix
             </span>
-            <span className="text-[22px] font-bold tracking-tight text-blue-600">
+
+            <span className="text-[22px] font-bold tracking-tight text-blue-500">
               AI
             </span>
           </div>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-1 lg:flex">
+        <nav className="hidden items-center gap-8 lg:flex">
           {navItems.map((item) => {
             const active = location.pathname === item.path;
 
@@ -52,29 +53,34 @@ function Navbar() {
                 key={item.path}
                 to={item.path}
                 className={`
-                  group relative rounded-xl px-5 py-3
+                  group relative py-3
                   text-[15px] font-medium
-                  transition-all duration-300
+                  transition-colors duration-300
                   ${
                     active
-                      ? "bg-blue-50 text-blue-600"
-                      : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                      ? "text-white"
+                      : "text-slate-300 hover:text-white"
                   }
                 `}
               >
                 {item.label}
 
-                {/* Animated underline */}
+                {/* Underline */}
                 <span
                   className={`
-                    absolute bottom-1.5 left-1/2 h-[2px]
-                    -translate-x-1/2 rounded-full
-                    bg-blue-600
-                    transition-all duration-300
+                    absolute
+                    left-0
+                    bottom-1
+                    h-[2px]
+                    rounded-full
+                    bg-blue-500
+                    transition-all
+                    duration-300
+                    ease-out
                     ${
                       active
-                        ? "w-5 opacity-100"
-                        : "w-0 opacity-0 group-hover:w-5 group-hover:opacity-100"
+                        ? "w-full"
+                        : "w-0 group-hover:w-full"
                     }
                   `}
                 />
@@ -84,14 +90,16 @@ function Navbar() {
         </nav>
 
         {/* Desktop Actions */}
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden items-center gap-5 lg:flex">
           <Link
             to="/login"
             className="
-              rounded-xl px-5 py-3
-              text-[15px] font-medium text-slate-600
-              transition-all duration-300
-              hover:bg-slate-50 hover:text-slate-900
+              text-[15px]
+              font-medium
+              text-slate-300
+              transition-colors
+              duration-300
+              hover:text-white
             "
           >
             Login
@@ -100,14 +108,22 @@ function Navbar() {
           <Link
             to="/register"
             className="
-              group flex items-center gap-2
-              rounded-xl bg-blue-600
-              px-5 py-3
-              text-[15px] font-semibold text-white
-              shadow-lg shadow-blue-600/20
-              transition-all duration-300
-              hover:bg-blue-700
-              hover:shadow-xl hover:shadow-blue-600/25
+              group
+              flex
+              items-center
+              gap-2
+              rounded-xl
+              bg-blue-600
+              px-6
+              py-3.5
+              text-[15px]
+              font-semibold
+              text-white
+              shadow-lg
+              shadow-blue-600/25
+              transition-all
+              duration-300
+              hover:bg-blue-500
               hover:-translate-y-0.5
             "
           >
@@ -127,15 +143,16 @@ function Navbar() {
           aria-expanded={mobileOpen}
           onClick={() => setMobileOpen((prev) => !prev)}
           className="
-            flex h-11 w-11 items-center justify-center
+            flex h-11 w-11
+            items-center justify-center
             rounded-xl
-            border border-slate-200
-            bg-white
-            text-slate-700
-            transition-all duration-300
-            hover:border-blue-200
-            hover:bg-blue-50
-            hover:text-blue-600
+            border border-white/10
+            bg-white/5
+            text-slate-300
+            transition-colors
+            duration-300
+            hover:border-white/20
+            hover:text-white
             lg:hidden
           "
         >
@@ -147,8 +164,8 @@ function Navbar() {
       <div
         className={`
           overflow-hidden
-          border-t border-slate-100
-          bg-white
+          border-t border-white/10
+          bg-slate-950
           transition-all duration-300
           lg:hidden
           ${
@@ -158,9 +175,8 @@ function Navbar() {
           }
         `}
       >
-        <nav className="mx-auto max-w-[1540px] px-6 py-4">
+        <nav className="mx-auto max-w-[1540px] px-6 py-5">
 
-          {/* Mobile Nav Links */}
           <div className="space-y-1">
             {navItems.map((item) => {
               const active = location.pathname === item.path;
@@ -171,65 +187,81 @@ function Navbar() {
                   to={item.path}
                   onClick={closeMobileMenu}
                   className={`
-                    flex items-center justify-between
-                    rounded-xl
-                    px-4 py-3.5
-                    text-[16px] font-medium
-                    transition-all duration-200
+                    group
+                    relative
+                    block
+                    py-3.5
+                    text-[16px]
+                    font-medium
+                    transition-colors
+                    duration-300
                     ${
                       active
-                        ? "bg-blue-50 text-blue-600"
-                        : "text-slate-600 hover:bg-slate-50 hover:text-slate-900"
+                        ? "text-white"
+                        : "text-slate-300 hover:text-white"
                     }
                   `}
                 >
-                  <span>{item.label}</span>
+                  {item.label}
 
-                  {active && (
-                    <span className="h-2 w-2 rounded-full bg-blue-600" />
-                  )}
+                  {/* Mobile underline */}
+                  <span
+                    className={`
+                      absolute
+                      left-0
+                      bottom-1
+                      h-[2px]
+                      rounded-full
+                      bg-blue-500
+                      transition-all
+                      duration-300
+                      ${
+                        active
+                          ? "w-8"
+                          : "w-0 group-hover:w-8"
+                      }
+                    `}
+                  />
                 </Link>
               );
             })}
           </div>
 
           {/* Mobile Actions */}
-          <div className="mt-4 grid grid-cols-2 gap-3 border-t border-slate-100 pt-4">
-
-            {/* Login */}
+          <div className="mt-4 flex items-center gap-5 border-t border-white/10 pt-5">
             <Link
               to="/login"
               onClick={closeMobileMenu}
               className="
-                flex items-center justify-center
-                rounded-xl
-                border border-slate-200
-                px-4 py-3.5
-                text-[15px] font-semibold
-                text-slate-700
-                transition-all duration-300
-                hover:border-blue-200
-                hover:bg-blue-50
-                hover:text-blue-600
+                text-[15px]
+                font-medium
+                text-slate-300
+                transition-colors
+                duration-300
+                hover:text-white
               "
             >
               Login
             </Link>
 
-            {/* Get Started */}
             <Link
               to="/register"
               onClick={closeMobileMenu}
               className="
-                group flex items-center justify-center gap-2
+                group
+                flex
+                items-center
+                gap-2
                 rounded-xl
                 bg-blue-600
-                px-4 py-3.5
-                text-[15px] font-semibold
+                px-5
+                py-3
+                text-[15px]
+                font-semibold
                 text-white
-                shadow-lg shadow-blue-600/20
-                transition-all duration-300
-                hover:bg-blue-700
+                transition-all
+                duration-300
+                hover:bg-blue-500
               "
             >
               Get Started
@@ -239,7 +271,6 @@ function Navbar() {
                 className="transition-transform duration-300 group-hover:translate-x-1"
               />
             </Link>
-
           </div>
         </nav>
       </div>
