@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import HomeChatbot from "../../components/ai/HomeChatbot/HomeChatbot";
+
 import {
   ArrowRight,
   Bot,
@@ -6,7 +8,6 @@ import {
   Clock3,
   Cpu,
   MessageSquare,
-  Network,
   Sparkles,
   Zap,
 } from "lucide-react";
@@ -21,7 +22,6 @@ function Home() {
 
       {/* ========================= HERO ========================= */}
       <section className="relative min-h-screen pt-32 pb-20 bg-slate-950">
-
         {/* Background grid */}
         <div className="absolute inset-0 hero-grid opacity-40" />
 
@@ -39,40 +39,32 @@ function Home() {
         <div className="absolute bottom-[25%] right-[12%] w-1.5 h-1.5 rounded-full bg-blue-300 animate-particle-delay" />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6">
-
           <div className="grid lg:grid-cols-2 gap-16 items-center min-h-[calc(100vh-8rem)]">
 
             {/* ================= HERO LEFT ================= */}
             <div className="animate-hero-left">
-
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-blue-400/20 bg-blue-500/10 text-blue-300 text-sm font-medium backdrop-blur-md shadow-lg shadow-blue-500/10">
-
                 <Sparkles className="w-4 h-4 animate-spin-slow" />
 
                 AI-Powered Problem Solving
 
                 <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
-
               </div>
 
               {/* Heading */}
               <h1 className="mt-7 text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white">
-
                 Solve Problems.
 
                 <br />
 
                 <span className="relative inline-block mt-2">
-
                   <span className="gradient-text">
                     Faster.
                   </span>
 
                   <span className="absolute left-0 -bottom-2 h-1 w-full rounded-full bg-gradient-to-r from-blue-500 via-cyan-400 to-indigo-500 animate-expand" />
-
                 </span>
-
               </h1>
 
               {/* Description */}
@@ -84,12 +76,10 @@ function Home() {
 
               {/* Buttons */}
               <div className="mt-9 flex flex-wrap gap-4">
-
                 <Link
                   to="/register"
                   className="group relative inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-blue-600 text-white font-semibold shadow-xl shadow-blue-600/30 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:bg-blue-500 hover:shadow-blue-500/40"
                 >
-
                   <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:translate-x-full transition-transform duration-700" />
 
                   <span className="relative">
@@ -97,7 +87,6 @@ function Home() {
                   </span>
 
                   <ArrowRight className="relative w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-
                 </Link>
 
                 <Link
@@ -107,14 +96,11 @@ function Home() {
                   How It Works
 
                   <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-
                 </Link>
-
               </div>
 
               {/* Stats */}
               <div className="mt-12 grid grid-cols-3 max-w-xl border-t border-white/10 pt-8">
-
                 <AnimatedStat
                   value="AI"
                   label="Powered Support"
@@ -129,149 +115,76 @@ function Home() {
                   value="Real-time"
                   label="Tracking"
                 />
-
               </div>
-
             </div>
 
-            {/* ================= AI CHAT ================= */}
+            {/* ================= HERO RIGHT ================= */}
             <div className="relative flex justify-center lg:justify-end animate-hero-right">
+              <div className="relative w-full max-w-[500px]">
 
-              {/* Glow */}
-              <div className="absolute w-[420px] h-[420px] rounded-full bg-blue-500/20 blur-[90px] animate-pulse-slow" />
+                {/* Glow */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-[420px] h-[420px] rounded-full bg-blue-500/20 blur-[90px] animate-pulse-slow" />
+                </div>
 
-              {/* Floating status */}
-              <FloatingCard
-                className="absolute -left-6 top-16 z-20 hidden xl:flex animate-float-card"
-                icon={<CheckCircle2 className="w-5 h-5 text-green-400" />}
-                text="Issue analyzed"
-              />
+                {/* Floating status */}
+                <FloatingCard
+                  className="absolute -left-6 top-16 z-20 hidden xl:flex animate-float-card"
+                  icon={<CheckCircle2 className="w-5 h-5 text-green-400" />}
+                  text="Issue analyzed"
+                />
 
-              <FloatingCard
-                className="absolute -right-8 bottom-24 z-20 hidden xl:flex animate-float-card-delay"
-                icon={<Zap className="w-5 h-5 text-yellow-400" />}
-                text="Smart assignment"
-              />
+                <FloatingCard
+                  className="absolute -right-8 bottom-24 z-20 hidden xl:flex animate-float-card-delay"
+                  icon={<Zap className="w-5 h-5 text-yellow-400" />}
+                  text="Smart assignment"
+                />
 
-              {/* Chat window */}
-              <div className="relative w-full max-w-[500px] rounded-[28px] border border-white/15 bg-white/[0.07] backdrop-blur-2xl shadow-2xl shadow-blue-950/50 p-5 animate-chat-float">
+                {/* AI Visual */}
+                <div className="relative z-10 flex items-center justify-center min-h-[500px]">
+                  <div className="relative">
 
-                {/* Header */}
-                <div className="flex items-center justify-between pb-5 border-b border-white/10">
+                    <div className="absolute inset-0 rounded-full bg-blue-500/20 blur-3xl scale-150" />
 
-                  <div className="flex items-center gap-3">
+                    <div className="relative w-64 h-64 rounded-full border border-blue-400/20 bg-gradient-to-br from-blue-500/20 via-indigo-500/10 to-cyan-400/10 backdrop-blur-xl shadow-2xl shadow-blue-900/40 flex items-center justify-center">
 
-                    <div className="relative flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg shadow-blue-500/30">
+                      <div className="w-44 h-44 rounded-full border border-white/10 bg-white/5 flex items-center justify-center">
 
-                      <Bot className="w-6 h-6 text-white" />
+                        <div className="w-28 h-28 rounded-3xl bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-2xl shadow-blue-500/40">
+                          <Bot className="w-14 h-14 text-white" />
+                        </div>
 
-                      <span className="absolute -right-1 -top-1 w-3.5 h-3.5 rounded-full bg-green-400 border-2 border-slate-950 animate-pulse" />
-
-                    </div>
-
-                    <div>
-
-                      <h3 className="font-semibold text-white">
-                        SmartFix AI
-                      </h3>
-
-                      <div className="flex items-center gap-1.5 text-xs text-green-400">
-                        <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
-                        Online & ready
                       </div>
 
+                      <span className="absolute top-4 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-cyan-400 shadow-lg shadow-cyan-400/50" />
+
+                      <span className="absolute bottom-10 right-8 w-2.5 h-2.5 rounded-full bg-blue-400 shadow-lg shadow-blue-400/50" />
+
+                      <span className="absolute bottom-10 left-8 w-2.5 h-2.5 rounded-full bg-indigo-400 shadow-lg shadow-indigo-400/50" />
+                    </div>
+
+                    <div className="absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md text-xs text-blue-300">
+                      Intelligent AI Engine
+                    </div>
+
+                    <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md text-xs text-slate-400">
+                      Analyze • Assign • Resolve
                     </div>
 
                   </div>
-
-                  <div className="flex gap-1.5">
-                    <span className="w-2 h-2 rounded-full bg-white/20" />
-                    <span className="w-2 h-2 rounded-full bg-white/20" />
-                    <span className="w-2 h-2 rounded-full bg-white/20" />
-                  </div>
-
                 </div>
-
-                {/* Messages */}
-                <div className="py-6 space-y-5">
-
-                  <ChatBubble bot delay="0s">
-                    Hi! Tell me what problem you're experiencing.
-                  </ChatBubble>
-
-                  <ChatBubble user delay="0.5s">
-                    My office Wi-Fi is not working.
-                  </ChatBubble>
-
-                  <ChatBubble bot delay="1s">
-                    I'll analyze the issue and help you create the right
-                    service request.
-                  </ChatBubble>
-
-                  {/* AI Analysis */}
-                  <div className="rounded-2xl border border-blue-400/20 bg-blue-500/10 p-4 animate-message-appear">
-
-                    <div className="flex items-center gap-2 text-blue-300 text-sm font-semibold">
-                      <Sparkles className="w-4 h-4" />
-                      AI Analysis
-                    </div>
-
-                    <div className="mt-3 grid grid-cols-2 gap-2">
-
-                      <MiniAnalysis
-                        icon={<Network className="w-4 h-4" />}
-                        title="Category"
-                        value="Network"
-                      />
-
-                      <MiniAnalysis
-                        icon={<Zap className="w-4 h-4" />}
-                        title="Priority"
-                        value="High"
-                      />
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-                {/* Chat input */}
-                <div className="flex gap-2 p-2 rounded-2xl bg-white/5 border border-white/10">
-
-                  <div className="flex-1 flex items-center gap-2 px-3 text-sm text-slate-400">
-
-                    <MessageSquare className="w-4 h-4" />
-
-                    Describe your problem...
-
-                  </div>
-
-                  <button className="w-11 h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center hover:bg-blue-500 transition-all hover:scale-105">
-
-                    <ArrowRight className="w-5 h-5" />
-
-                  </button>
-
-                </div>
-
               </div>
-
             </div>
 
           </div>
-
         </div>
-
       </section>
 
       {/* ================= FEATURES ================= */}
       <section className="relative py-24 bg-white">
-
         <div className="absolute inset-0 dot-background opacity-50" />
 
         <div className="relative max-w-7xl mx-auto px-6">
-
           <div className="text-center max-w-3xl mx-auto">
 
             <div className="inline-flex items-center gap-2 text-blue-600 font-semibold text-sm">
@@ -281,14 +194,15 @@ function Home() {
 
             <h2 className="mt-4 text-4xl md:text-5xl font-bold text-slate-900">
               Everything you need to
-              <span className="text-blue-600"> solve problems</span>
+              <span className="text-blue-600">
+                {" "}solve problems
+              </span>
             </h2>
 
             <p className="mt-5 text-lg text-slate-600 leading-relaxed">
               From the moment a problem is reported to the moment it is
               resolved, SmartFix AI keeps everyone connected.
             </p>
-
           </div>
 
           <div className="grid md:grid-cols-3 gap-6 mt-16">
@@ -315,20 +229,16 @@ function Home() {
             />
 
           </div>
-
         </div>
-
       </section>
 
       {/* ================= WORKFLOW ================= */}
       <section className="relative py-28 bg-slate-50 overflow-hidden">
-
         <div className="absolute -top-40 right-0 w-[500px] h-[500px] bg-blue-200/30 blur-[120px] rounded-full" />
 
         <div className="relative max-w-7xl mx-auto px-6">
 
           <div className="text-center">
-
             <p className="text-blue-600 font-semibold text-sm">
               SIMPLE WORKFLOW
             </p>
@@ -336,12 +246,10 @@ function Home() {
             <h2 className="mt-3 text-4xl md:text-5xl font-bold">
               From problem to solution
             </h2>
-
           </div>
 
           <div className="relative mt-20">
 
-            {/* Connecting line */}
             <div className="hidden md:block absolute top-10 left-[12%] right-[12%] h-px bg-gradient-to-r from-blue-200 via-blue-400 to-indigo-200" />
 
             <div className="grid md:grid-cols-4 gap-10">
@@ -375,11 +283,8 @@ function Home() {
               />
 
             </div>
-
           </div>
-
         </div>
-
       </section>
 
       {/* ================= CTA ================= */}
@@ -394,21 +299,15 @@ function Home() {
         <div className="relative max-w-4xl mx-auto px-6 text-center">
 
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-blue-300 text-sm">
-
             <Sparkles className="w-4 h-4" />
-
             Smarter service starts here
-
           </div>
 
           <h2 className="mt-6 text-4xl md:text-6xl font-bold text-white">
-
             Ready to solve problems
-
             <span className="gradient-text">
               {" "}smarter?
             </span>
-
           </h2>
 
           <p className="mt-6 text-lg text-slate-400 max-w-2xl mx-auto">
@@ -420,18 +319,18 @@ function Home() {
             to="/register"
             className="group inline-flex items-center gap-2 mt-9 px-8 py-4 bg-blue-600 text-white rounded-xl font-semibold shadow-xl shadow-blue-600/30 hover:bg-blue-500 hover:-translate-y-1 transition-all duration-300"
           >
-
             Create Your Account
 
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-
           </Link>
 
         </div>
-
       </section>
 
       <Footer />
+
+      {/* ================= FLOATING AI CHATBOT ================= */}
+      <HomeChatbot />
 
     </div>
   );
@@ -451,7 +350,6 @@ function AnimatedStat({
 }) {
   return (
     <div className="group">
-
       <p className="text-xl sm:text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">
         {value}
       </p>
@@ -459,7 +357,6 @@ function AnimatedStat({
       <p className="mt-1 text-xs sm:text-sm text-slate-500">
         {label}
       </p>
-
     </div>
   );
 }
@@ -478,78 +375,11 @@ function FloatingCard({
     <div
       className={`items-center gap-2 px-4 py-3 rounded-xl bg-slate-900/90 border border-white/10 shadow-xl backdrop-blur-xl ${className}`}
     >
-
       {icon}
 
       <span className="text-sm font-medium text-white">
         {text}
       </span>
-
-    </div>
-  );
-}
-
-
-function ChatBubble({
-  children,
-  bot = false,
-  user = false,
-  delay,
-}: {
-  children: React.ReactNode;
-  bot?: boolean;
-  user?: boolean;
-  delay: string;
-}) {
-  return (
-    <div
-      className={`flex animate-message-appear ${
-        user ? "justify-end" : "justify-start"
-      }`}
-      style={{
-        animationDelay: delay,
-      }}
-    >
-
-      <div
-        className={`max-w-[85%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
-          bot
-            ? "bg-white/10 text-slate-200 border border-white/10"
-            : "bg-blue-600 text-white shadow-lg shadow-blue-600/20"
-        }`}
-      >
-        {children}
-      </div>
-
-    </div>
-  );
-}
-
-
-function MiniAnalysis({
-  icon,
-  title,
-  value,
-}: {
-  icon: React.ReactNode;
-  title: string;
-  value: string;
-}) {
-  return (
-    <div className="rounded-xl bg-white/5 border border-white/5 p-3">
-
-      <div className="flex items-center gap-2 text-slate-400 text-xs">
-
-        {icon}
-
-        {title}
-
-      </div>
-
-      <p className="mt-1 text-sm font-semibold text-white">
-        {value}
-      </p>
-
     </div>
   );
 }
@@ -569,7 +399,6 @@ function FeatureCard({
   return (
     <div className="group relative p-8 rounded-3xl border border-slate-200 bg-white overflow-hidden transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl hover:shadow-blue-100">
 
-      {/* Hover background */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 via-blue-50/0 to-blue-100/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
       <div className="relative">
@@ -577,9 +406,7 @@ function FeatureCard({
         <div className="flex items-center justify-between">
 
           <div className="w-14 h-14 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center transition-all duration-500 group-hover:bg-blue-600 group-hover:text-white group-hover:scale-110 group-hover:rotate-3">
-
             {icon}
-
           </div>
 
           <span className="text-5xl font-bold text-slate-100 group-hover:text-blue-100 transition-colors">
@@ -597,15 +424,11 @@ function FeatureCard({
         </p>
 
         <div className="mt-6 flex items-center gap-2 text-blue-600 text-sm font-semibold opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-
           Learn more
-
           <ArrowRight className="w-4 h-4" />
-
         </div>
 
       </div>
-
     </div>
   );
 }
@@ -626,9 +449,7 @@ function WorkflowStep({
     <div className="relative text-center group">
 
       <div className="relative z-10 mx-auto w-20 h-20 rounded-full bg-white border border-blue-100 shadow-xl flex items-center justify-center text-blue-600 transition-all duration-500 group-hover:scale-110 group-hover:bg-blue-600 group-hover:text-white group-hover:shadow-blue-200">
-
         {icon}
-
       </div>
 
       <p className="mt-5 text-xs font-bold text-blue-600">
@@ -646,5 +467,6 @@ function WorkflowStep({
     </div>
   );
 }
+
 
 export default Home;
