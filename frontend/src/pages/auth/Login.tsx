@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import {  useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
 import {
   ArrowRight,
   Bot,
@@ -12,38 +13,195 @@ import {
   Zap,
 } from "lucide-react";
 
+import { API } from "../../services/api";
+
+interface LoginResponse {
+  success: boolean;
+  message: string;
+  userId: number | null;
+  fullName: string | null;
+  email: string | null;
+  accountType: string | null;
+  token: string | null;
+}
+
 function Login() {
+  const navigate = useNavigate();
+
+  // =========================
+  // STATE
+  // =========================
+
   const [showPassword, setShowPassword] = useState(false);
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [rememberMe, setRememberMe] = useState(false);
+
+  const [loading, setLoading] = useState(false);
+
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
+
+  // =========================
+  // LOGIN
+  // =========================
+
+  const handleLogin = async (
+    event: FormEvent<HTMLFormElement>
+  ) => {
+    event.preventDefault();
+
+    setErrorMessage("");
+    setSuccessMessage("");
+
+    // Basic validation
+    if (!email.trim()) {
+      setErrorMessage("Please enter your email address.");
+      return;
+    }
+
+    if (!password) {
+      setErrorMessage("Please enter your password.");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      const response = await fetch(API.AUTH.LOGIN, {
+        method: "POST",
+
+        headers: {
+          "Content-Type": "application/json",
+        },
+
+        body: JSON.stringify({
+          email: email.trim(),
+          password: password,
+        }),
+      });
+
+      const data: LoginResponse = await response.json();
+
+      // =========================
+      // LOGIN FAILED
+      // =========================
+
+      if (!response.ok || !data.success) {
+        setErrorMessage(
+          data.message || "Invalid email or password."
+        );
+
+        return;
+      }
+
+      // =========================
+      // LOGIN SUCCESS
+      // =========================
+
+      if (data.token) {
+        localStorage.setItem(
+          "smartfix_token",
+          data.token
+        );
+      }
+
+      // Save logged-in user
+      localStorage.setItem(
+        "smartfix_user",
+        JSON.stringify({
+          userId: data.userId,
+          fullName: data.fullName,
+          email: data.email,
+          accountType: data.accountType,
+        })
+      );
+
+      // Optional remember email
+      if (rememberMe) {
+        localStorage.setItem(
+          "smartfix_remember_email",
+          email.trim()
+        );
+      } else {
+        localStorage.removeItem(
+          "smartfix_remember_email"
+        );
+      }
+
+      setSuccessMessage(
+        "Login successful. Redirecting..."
+      );
+
+      // =========================
+      // GO TO CUSTOMER
+      // =========================
+
+      setTimeout(() => {
+        navigate("/customer");
+      }, 500);
+
+    } catch (error) {
+      console.error("Login error:", error);
+
+      setErrorMessage(
+        "Unable to connect to SmartFix AI server. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+
+  // =========================
+  // RETURN
+  // =========================
+
   return (
-    <div className="login-page min-h-screen relative overflow-hidden bg-[#020817]">
+    <div className="login-page relative min-h-screen overflow-hidden bg-[#020817]">
+
 
       {/* =====================================================
           ANIMATED BACKGROUND
       ====================================================== */}
 
-      <div className="absolute inset-0 pointer-events-none">
+      <div className="pointer-events-none absolute inset-0">
 
         {/* Base gradient */}
 
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_15%_30%,rgba(37,99,235,0.22),transparent_32%),radial-gradient(circle_at_85%_65%,rgba(79,70,229,0.20),transparent_35%)]" />
+        <div
+          className="
+            absolute
+            inset-0
+            bg-[radial-gradient(circle_at_15%_30%,rgba(37,99,235,0.22),transparent_32%),radial-gradient(circle_at_85%_65%,rgba(79,70,229,0.20),transparent_35%)]
+          "
+        />
+
 
         {/* Grid */}
 
         <div className="login-grid" />
 
+
         {/* Ambient orbs */}
 
         <div className="login-orb login-orb-blue" />
+
         <div className="login-orb login-orb-purple" />
+
 
         {/* Light sweep */}
 
         <div className="login-scan" />
 
+
         {/* Particles */}
 
         <div className="login-particles">
+
           <span />
           <span />
           <span />
@@ -56,6 +214,7 @@ function Login() {
           <span />
           <span />
           <span />
+
         </div>
 
       </div>
@@ -71,27 +230,29 @@ function Login() {
           to="/"
           className="
             absolute
-            top-7
             left-7
-            md:left-10
+            top-7
             flex
             items-center
             gap-3
             group
+            md:left-10
           "
         >
+
+          {/* Logo */}
 
           <div
             className="
               relative
-              w-11
+              flex
               h-11
+              w-11
+              items-center
+              justify-center
               rounded-xl
               bg-blue-600
               text-white
-              flex
-              items-center
-              justify-center
               shadow-[0_8px_25px_rgba(37,99,235,0.30)]
               transition-all
               duration-300
@@ -115,17 +276,20 @@ function Login() {
                 absolute
                 -right-1
                 -top-1
-                w-3
                 h-3
+                w-3
+                animate-pulse
                 rounded-full
-                bg-emerald-400
                 border-2
                 border-[#020817]
-                animate-pulse
+                bg-emerald-400
               "
             />
 
           </div>
+
+
+          {/* Brand */}
 
           <span
             className="
@@ -135,7 +299,10 @@ function Login() {
               text-white
             "
           >
-            SmartFix<span className="text-blue-400">AI</span>
+            SmartFix
+            <span className="text-blue-400">
+              AI
+            </span>
           </span>
 
         </Link>
@@ -151,8 +318,8 @@ function Login() {
         className="
           relative
           z-10
-          min-h-screen
           flex
+          min-h-screen
           items-center
           justify-center
           px-5
@@ -162,25 +329,25 @@ function Login() {
 
         <div
           className="
+            grid
             w-full
             max-w-6xl
-            grid
-            lg:grid-cols-[1fr_460px]
-            gap-14
             items-center
+            gap-14
+            lg:grid-cols-[1fr_460px]
           "
         >
 
 
           {/* =================================================
-              LEFT - PRODUCT MESSAGE
+              LEFT SIDE
           ================================================== */}
 
           <div
             className="
+              login-content-enter
               hidden
               lg:block
-              login-content-enter
             "
           >
 
@@ -202,11 +369,21 @@ function Login() {
                 text-blue-300
               "
             >
+
               <Sparkles size={16} />
 
               AI-powered service management
 
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span
+                className="
+                  h-1.5
+                  w-1.5
+                  animate-pulse
+                  rounded-full
+                  bg-emerald-400
+                "
+              />
+
             </div>
 
 
@@ -217,20 +394,24 @@ function Login() {
                 mt-7
                 max-w-xl
                 text-5xl
-                xl:text-6xl
                 font-bold
                 leading-[1.05]
                 tracking-tight
                 text-white
+                xl:text-6xl
               "
             >
+
               Welcome back.
 
               <span className="block login-gradient-text">
                 Let's solve problems.
               </span>
+
             </h1>
 
+
+            {/* Description */}
 
             <p
               className="
@@ -241,22 +422,34 @@ function Login() {
                 text-slate-400
               "
             >
-              Access your SmartFix AI workspace and manage complaints,
-              assignments, service requests and real-time resolution
-              updates from one place.
+              Access your SmartFix AI workspace and manage
+              complaints, assignments, service requests and
+              real-time resolution updates from one place.
             </p>
 
 
-            {/* Product capabilities */}
+            {/* Features */}
 
-            <div className="mt-9 grid grid-cols-2 gap-4 max-w-lg">
+            <div
+              className="
+                mt-9
+                grid
+                max-w-lg
+                grid-cols-2
+                gap-4
+              "
+            >
+
+              {/* AI Assistance */}
 
               <div className="login-feature-card">
+
                 <div className="login-feature-icon">
                   <Bot size={19} />
                 </div>
 
                 <div>
+
                   <p className="text-sm font-semibold text-white">
                     AI Assistance
                   </p>
@@ -264,16 +457,22 @@ function Login() {
                   <p className="mt-1 text-xs text-slate-500">
                     Intelligent complaint analysis
                   </p>
+
                 </div>
+
               </div>
 
 
+              {/* Smart Assignment */}
+
               <div className="login-feature-card">
+
                 <div className="login-feature-icon">
                   <Zap size={19} />
                 </div>
 
                 <div>
+
                   <p className="text-sm font-semibold text-white">
                     Smart Assignment
                   </p>
@@ -281,16 +480,22 @@ function Login() {
                   <p className="mt-1 text-xs text-slate-500">
                     Right technician, faster
                   </p>
+
                 </div>
+
               </div>
 
 
+              {/* Role Access */}
+
               <div className="login-feature-card">
+
                 <div className="login-feature-icon">
                   <ShieldCheck size={19} />
                 </div>
 
                 <div>
+
                   <p className="text-sm font-semibold text-white">
                     Role-Based Access
                   </p>
@@ -298,16 +503,22 @@ function Login() {
                   <p className="mt-1 text-xs text-slate-500">
                     Secure workspace access
                   </p>
+
                 </div>
+
               </div>
 
 
+              {/* Tracking */}
+
               <div className="login-feature-card">
+
                 <div className="login-feature-icon">
                   <CheckCircle2 size={19} />
                 </div>
 
                 <div>
+
                   <p className="text-sm font-semibold text-white">
                     Real-Time Tracking
                   </p>
@@ -315,13 +526,15 @@ function Login() {
                   <p className="mt-1 text-xs text-slate-500">
                     Follow every resolution
                   </p>
+
                 </div>
+
               </div>
 
             </div>
 
 
-            {/* Mini AI status */}
+            {/* System status */}
 
             <div
               className="
@@ -354,6 +567,7 @@ function Login() {
               </div>
 
               <div>
+
                 <p className="text-xs font-semibold text-slate-300">
                   SmartFix AI systems
                 </p>
@@ -361,6 +575,7 @@ function Login() {
                 <p className="text-xs text-emerald-400">
                   Online & ready
                 </p>
+
               </div>
 
             </div>
@@ -386,7 +601,7 @@ function Login() {
               "
             >
 
-              {/* Card header */}
+              {/* Header */}
 
               <div>
 
@@ -405,6 +620,7 @@ function Login() {
                   <LockKeyhole size={21} />
                 </div>
 
+
                 <h2
                   className="
                     mt-5
@@ -417,6 +633,7 @@ function Login() {
                   Welcome back
                 </h2>
 
+
                 <p
                   className="
                     mt-2
@@ -425,7 +642,8 @@ function Login() {
                     text-slate-500
                   "
                 >
-                  Sign in to continue to your SmartFix AI workspace.
+                  Sign in to continue to your SmartFix AI
+                  workspace.
                 </p>
 
               </div>
@@ -450,17 +668,68 @@ function Login() {
                   text-emerald-700
                 "
               >
+
                 <ShieldCheck size={15} />
 
                 Secure role-based access enabled
+
               </div>
 
 
-              {/* Form */}
+              {/* =================================================
+                  FORM
+              ================================================== */}
 
-              <form className="mt-7 space-y-5">
+              <form
+                onSubmit={handleLogin}
+                className="mt-7 space-y-5"
+              >
 
-                {/* Email */}
+                {/* Error */}
+
+                {errorMessage && (
+                  <div
+                    className="
+                      rounded-xl
+                      border
+                      border-red-200
+                      bg-red-50
+                      px-4
+                      py-3
+                      text-sm
+                      font-medium
+                      text-red-700
+                    "
+                  >
+                    {errorMessage}
+                  </div>
+                )}
+
+
+                {/* Success */}
+
+                {successMessage && (
+                  <div
+                    className="
+                      rounded-xl
+                      border
+                      border-emerald-200
+                      bg-emerald-50
+                      px-4
+                      py-3
+                      text-sm
+                      font-medium
+                      text-emerald-700
+                    "
+                  >
+                    {successMessage}
+                  </div>
+                )}
+
+
+                {/* =================================================
+                    EMAIL
+                ================================================== */}
 
                 <div>
 
@@ -480,7 +749,13 @@ function Login() {
                   <input
                     id="email"
                     type="email"
+                    value={email}
+                    onChange={(event) =>
+                      setEmail(event.target.value)
+                    }
                     placeholder="you@example.com"
+                    autoComplete="email"
+                    required
                     className="
                       login-input
                       w-full
@@ -505,7 +780,9 @@ function Login() {
                 </div>
 
 
-                {/* Password */}
+                {/* =================================================
+                    PASSWORD
+                ================================================== */}
 
                 <div>
 
@@ -524,12 +801,23 @@ function Login() {
 
                   </div>
 
+
                   <div className="relative">
 
                     <input
                       id="password"
-                      type={showPassword ? "text" : "password"}
+                      type={
+                        showPassword
+                          ? "text"
+                          : "password"
+                      }
+                      value={password}
+                      onChange={(event) =>
+                        setPassword(event.target.value)
+                      }
                       placeholder="Enter your password"
+                      autoComplete="current-password"
+                      required
                       className="
                         login-input
                         w-full
@@ -552,6 +840,7 @@ function Login() {
                       "
                     />
 
+
                     <button
                       type="button"
                       onClick={() =>
@@ -566,10 +855,10 @@ function Login() {
                         absolute
                         right-3
                         top-1/2
-                        -translate-y-1/2
                         flex
                         h-9
                         w-9
+                        -translate-y-1/2
                         items-center
                         justify-center
                         rounded-lg
@@ -579,11 +868,13 @@ function Login() {
                         hover:text-slate-700
                       "
                     >
+
                       {showPassword ? (
                         <EyeOff size={18} />
                       ) : (
                         <Eye size={18} />
                       )}
+
                     </button>
 
                   </div>
@@ -591,7 +882,9 @@ function Login() {
                 </div>
 
 
-                {/* Remember + Forgot */}
+                {/* =================================================
+                    REMEMBER + FORGOT
+                ================================================== */}
 
                 <div className="flex items-center justify-between">
 
@@ -608,12 +901,17 @@ function Login() {
 
                     <input
                       type="checkbox"
+                      checked={rememberMe}
+                      onChange={(event) =>
+                        setRememberMe(
+                          event.target.checked
+                        )
+                      }
                       className="
                         h-4
                         w-4
                         rounded
                         border-slate-300
-                        text-blue-600
                         accent-blue-600
                       "
                     />
@@ -639,10 +937,13 @@ function Login() {
                 </div>
 
 
-                {/* Sign in */}
+                {/* =================================================
+                    SIGN IN BUTTON
+                ================================================== */}
 
                 <button
                   type="submit"
+                  disabled={loading}
                   className="
                     group
                     relative
@@ -664,44 +965,53 @@ function Login() {
                     hover:-translate-y-0.5
                     hover:bg-blue-700
                     hover:shadow-[0_15px_30px_rgba(37,99,235,0.28)]
+                    disabled:cursor-not-allowed
+                    disabled:opacity-60
                   "
                 >
 
-                  <span
-                    className="
-                      absolute
-                      inset-y-0
-                      -left-20
-                      w-16
-                      rotate-12
-                      bg-white/20
-                      blur-sm
-                      transition-all
-                      duration-700
-                      group-hover:left-[120%]
-                    "
-                  />
+                  {loading ? (
+                    <>
+                      <span
+                        className="
+                          h-5
+                          w-5
+                          animate-spin
+                          rounded-full
+                          border-2
+                          border-white/30
+                          border-t-white
+                        "
+                      />
 
-                  <span className="relative">
-                    Sign In
-                  </span>
+                      Signing in...
+                    </>
+                  ) : (
+                    <>
+                      <span className="relative">
+                        Sign In
+                      </span>
 
-                  <ArrowRight
-                    size={17}
-                    className="
-                      relative
-                      transition-transform
-                      duration-300
-                      group-hover:translate-x-1
-                    "
-                  />
+                      <ArrowRight
+                        size={17}
+                        className="
+                          relative
+                          transition-transform
+                          duration-300
+                          group-hover:translate-x-1
+                        "
+                      />
+                    </>
+                  )}
 
                 </button>
 
               </form>
 
 
-              {/* Divider */}
+              {/* =================================================
+                  DIVIDER
+              ================================================== */}
 
               <div className="my-6 flex items-center gap-4">
 
@@ -716,7 +1026,9 @@ function Login() {
               </div>
 
 
-              {/* Register */}
+              {/* =================================================
+                  REGISTER
+              ================================================== */}
 
               <Link
                 to="/register"
@@ -742,13 +1054,17 @@ function Login() {
                   hover:text-blue-600
                 "
               >
+
                 Create an account
 
                 <ArrowRight size={16} />
+
               </Link>
 
 
-              {/* Security footer */}
+              {/* =================================================
+                  SECURITY FOOTER
+              ================================================== */}
 
               <div
                 className="
@@ -761,9 +1077,11 @@ function Login() {
                   text-slate-400
                 "
               >
+
                 <ShieldCheck size={14} />
 
                 Your account information is securely protected
+
               </div>
 
             </div>
