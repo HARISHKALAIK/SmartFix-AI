@@ -16,7 +16,7 @@ import {
   UserRoundCog,
   Users,
   Wrench,
-  Zap,
+  
 } from "lucide-react";
 
 const steps = [
